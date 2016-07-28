@@ -35,4 +35,6 @@ libraries/*
 .idea
 .travis.yml
 .vscode/.browse.VC.db
-.idea
+build
+yotta_modules
+yotta_targets

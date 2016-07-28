@@ -1,0 +1,11 @@
+{
+  "name": "microbitflotilla",
+  "version": "0.0.0",
+  "bin": "./source",
+  "private": true,
+  "author": "Lee Witek",
+  "license": "MIT",
+  "dependencies": {
+    "microbit": "lancaster-university/microbit"
+  }
+}
