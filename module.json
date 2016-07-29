@@ -6,6 +6,7 @@
   "author": "Lee Witek",
   "license": "MIT",
   "dependencies": {
-    "microbit": "lancaster-university/microbit"
+    "microbit": "lancaster-university/microbit",
+	"libflotilla": "simulatedsimian/libflotilla"
   }
 }
