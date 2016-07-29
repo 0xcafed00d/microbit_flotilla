@@ -1,0 +1,16 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    "clang.cxxflags": [
+        "-I${workspaceRoot}/source",
+        "-I${workspaceRoot}/source/libflotilla",
+        "-I${workspaceRoot}/yotta_modules/microbit/inc",
+        "-I${workspaceRoot}/yotta_modules/microbit-dal/inc/bluetooth",
+        "-I${workspaceRoot}/yotta_modules/microbit-dal/inc/core",
+        "-I${workspaceRoot}/yotta_modules/microbit-dal/inc/drivers",
+        "-I${workspaceRoot}/yotta_modules/microbit-dal/inc/platform",
+        "-I${workspaceRoot}/yotta_modules/microbit-dal/inc/types"
+    ],
+
+    // Run 'clang-format' on save.
+    "clang-format.formatOnSave": true
+}
