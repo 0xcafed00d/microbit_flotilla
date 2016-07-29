@@ -1,0 +1,3 @@
+[submodule "source/libflotilla"]
+	path = source/libflotilla
+	url = https://github.com/simulatedsimian/libflotilla
