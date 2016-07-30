@@ -1,6 +1,7 @@
 #include <MicroBit.h>
 #include "libflotilla/lib_flotilla.h"
 #include "ubitinterfaces.h"
+#include "ubitmodules.h"
 
 MicroBit uBit;
 MicroBitTimerUtil timerUtil(&uBit);
@@ -9,8 +10,13 @@ MicroBitPersistantStore store(&uBit);
 
 Dock dock(&timerUtil, &store);
 
+MicroBitModuleButtons buttons(&uBit);
+
 void setup() {
 	uBit.init();
+
+	buttons.Init(1);
+	dock.AddModule(&buttons);
 }
 
 void loop() {
