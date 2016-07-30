@@ -11,12 +11,15 @@ MicroBitPersistantStore store(&uBit);
 Dock dock(&timerUtil, &store);
 
 MicroBitModuleButtons buttons(&uBit);
+MicroBitModuleMotion motion(&uBit);
 
 void setup() {
 	uBit.init();
 
 	buttons.Init(1);
+	motion.Init(2);
 	dock.AddModule(&buttons);
+	dock.AddModule(&motion);
 }
 
 void loop() {

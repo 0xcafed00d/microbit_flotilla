@@ -26,4 +26,23 @@ class MicroBitModuleButtons : public ModuleTouch {
 	}
 };
 
+class MicroBitModuleMotion : public ModuleMotion {
+  private:
+	MicroBit* m_uBit;
+
+  public:
+	MicroBitModuleMotion(MicroBit* uBit) : m_uBit(uBit) {
+	}
+
+  protected:
+	virtual void GetState(Vector<int16_t>& accel, Vector<int16_t>& mag) {
+		accel = Vector<int16_t>{int16_t(m_uBit->accelerometer.getX()),
+		                        int16_t(m_uBit->accelerometer.getY()),
+		                        int16_t(m_uBit->accelerometer.getZ())};
+
+		mag = Vector<int16_t>{int16_t(m_uBit->compass.getX()), int16_t(m_uBit->compass.getY()),
+		                      int16_t(m_uBit->compass.getZ())};
+	}
+};
+
 #endif
