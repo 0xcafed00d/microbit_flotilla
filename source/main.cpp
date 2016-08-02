@@ -18,8 +18,9 @@ void setup() {
 
 	buttons.Init(1);
 	motion.Init(2);
+
 	dock.AddModule(&buttons);
-	dock.AddModule(&motion);
+	//	dock.AddModule(&motion);
 }
 
 void loop() {

@@ -51,6 +51,8 @@ struct MicroBitTimerUtil : public TimerUtil {
 	}
 };
 
+static const char* namesKey = "FlotillaNames";
+
 struct MicroBitPersistantStore : public PersistantStore {
 	MicroBit* m_uBit;
 
@@ -58,10 +60,24 @@ struct MicroBitPersistantStore : public PersistantStore {
 	}
 
 	virtual void writeBlock(void* data, int offset, size_t len) {
+		KeyValuePair* p = m_uBit->storage.get(namesKey);
+		if (!p) {
+			p = new KeyValuePair;
+			memset(p->value, '*', MICROBIT_STORAGE_VALUE_SIZE);
+		}
+		memcpy(p->value + offset, data, len);
+		m_uBit->storage.put(namesKey, p->value, MICROBIT_STORAGE_VALUE_SIZE);
+		delete p;
 	}
 
 	virtual void readBlock(void* data, int offset, size_t len) {
-		strcpy((char*)data, "MicroBit");
+		KeyValuePair* p = m_uBit->storage.get(namesKey);
+		if (p) {
+			memcpy(data, p->value + offset, len);
+			delete p;
+		} else {
+			memset(data, '*', len);
+		}
 	}
 };
 
