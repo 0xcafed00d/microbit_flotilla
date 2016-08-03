@@ -4,6 +4,31 @@
 #include <MicroBit.h>
 #include "libflotilla/lib_flotilla.h"
 
+class MicroBitModuleMatrix : public ModuleMatrix {
+  private:
+	MicroBit* m_uBit;
+
+  public:
+	MicroBitModuleMatrix(MicroBit* uBit) : m_uBit(uBit) {
+	}
+
+	virtual void OnInit() {
+		m_uBit->display.setDisplayMode(DISPLAY_MODE_GREYSCALE);
+		m_uBit->display.scroll("INVADERS!");
+	}
+
+  protected:
+	virtual void SetMatrix(uint8_t* data, uint8_t brightness) {
+		for (int y = 0; y < 5; y++) {
+			for (int x = 0; x < 5; x++) {
+				if (data[y] & (1) << x) {
+					m_uBit->display.image.setPixelValue(x, y, brightness);
+				}
+			}
+		}
+	}
+};
+
 class MicroBitModuleButtons : public ModuleTouch {
   private:
 	MicroBit* m_uBit;

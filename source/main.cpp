@@ -12,15 +12,18 @@ Dock dock(&timerUtil, &store);
 
 MicroBitModuleButtons buttons(&uBit);
 MicroBitModuleMotion motion(&uBit);
+MicroBitModuleMatrix matrix(&uBit);
 
 void setup() {
 	uBit.init();
 
 	buttons.Init(1);
 	motion.Init(2);
+	matrix.Init(3);
 
 	dock.AddModule(&buttons);
-	//	dock.AddModule(&motion);
+	dock.AddModule(&motion);
+	dock.AddModule(&matrix);
 }
 
 void loop() {
