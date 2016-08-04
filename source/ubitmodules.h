@@ -7,25 +7,26 @@
 class MicroBitModuleMatrix : public ModuleMatrix {
   private:
 	MicroBit* m_uBit;
+	MicroBitImage m_image;
 
   public:
-	MicroBitModuleMatrix(MicroBit* uBit) : m_uBit(uBit) {
+	MicroBitModuleMatrix(MicroBit* uBit) : m_uBit(uBit), m_image(5, 5) {
 	}
 
 	virtual void OnInit() {
 		m_uBit->display.setDisplayMode(DISPLAY_MODE_GREYSCALE);
-		m_uBit->display.scroll("INVADERS!");
 	}
 
   protected:
 	virtual void SetMatrix(uint8_t* data, uint8_t brightness) {
 		for (int y = 0; y < 5; y++) {
 			for (int x = 0; x < 5; x++) {
-				if (data[y] & (1) << x) {
-					m_uBit->display.image.setPixelValue(x, y, brightness);
+				if (data[y] & (1 << x)) {
+					m_image.setPixelValue(4 - x, y, brightness);
 				}
 			}
 		}
+		m_uBit->display.image.paste(m_image);
 	}
 };
 
