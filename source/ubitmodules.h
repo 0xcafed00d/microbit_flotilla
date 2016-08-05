@@ -4,17 +4,39 @@
 #include <MicroBit.h>
 #include "libflotilla/lib_flotilla.h"
 
+class MicroBitModuleLight : public ModuleLight {
+  private:
+	MicroBit* m_uBit;
+
+  public:
+	MicroBitModuleLight(MicroBit* uBit) : m_uBit(uBit) {
+	}
+
+  protected:
+	virtual void GetState(uint16_t& visible, uint16_t& ir, uint16_t& lux) {
+		visible = (uint16_t)m_uBit->display.readLightLevel();
+		ir = visible;
+		lux = visible;
+	}
+};
+
 class MicroBitModuleMatrix : public ModuleMatrix {
   private:
 	MicroBit* m_uBit;
 	MicroBitImage m_image;
+	bool m_withLight;
 
   public:
-	MicroBitModuleMatrix(MicroBit* uBit) : m_uBit(uBit), m_image(5, 5) {
+	MicroBitModuleMatrix(MicroBit* uBit, bool withLight)
+	    : m_uBit(uBit), m_image(5, 5), m_withLight(withLight) {
 	}
 
 	virtual void OnInit() {
-		m_uBit->display.setDisplayMode(DISPLAY_MODE_GREYSCALE);
+		if (m_withLight) {
+			m_uBit->display.setDisplayMode(DISPLAY_MODE_BLACK_AND_WHITE_LIGHT_SENSE);
+		} else {
+			m_uBit->display.setDisplayMode(DISPLAY_MODE_GREYSCALE);
+		}
 	}
 
   protected:
@@ -22,10 +44,13 @@ class MicroBitModuleMatrix : public ModuleMatrix {
 		for (int y = 0; y < 5; y++) {
 			for (int x = 0; x < 5; x++) {
 				if (data[y] & (1 << x)) {
-					m_image.setPixelValue(4 - x, y, brightness);
+					m_image.setPixelValue(4 - x, y, 255);
+				} else {
+					m_image.setPixelValue(4 - x, y, 0);
 				}
 			}
 		}
+		m_uBit->display.setBrightness(brightness);
 		m_uBit->display.image.paste(m_image);
 	}
 };
