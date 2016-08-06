@@ -6,6 +6,7 @@
   "author": "Lee Witek",
   "license": "MIT",
   "dependencies": {
-    "microbit": "lancaster-university/microbit"
+    "microbit-dal": "lancaster-university/microbit-dal#master",
+    "microbit": "lancaster-university/microbit#master"
   }
 }
