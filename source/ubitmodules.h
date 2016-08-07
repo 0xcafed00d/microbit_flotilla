@@ -4,6 +4,21 @@
 #include <MicroBit.h>
 #include "libflotilla/lib_flotilla.h"
 
+class MicroBitModuleWeather : public ModuleWeather {
+  private:
+	MicroBit* m_uBit;
+
+  public:
+	MicroBitModuleWeather(MicroBit* uBit) : m_uBit(uBit) {
+	}
+
+  protected:
+	virtual void GetState(uint16_t& temp, uint16_t& pressure) {
+		temp = (uint16_t)m_uBit->thermometer.getTemperature();
+		pressure = 0;
+	}
+};
+
 class MicroBitModuleLight : public ModuleLight {
   private:
 	MicroBit* m_uBit;
