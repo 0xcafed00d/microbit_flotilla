@@ -19,12 +19,6 @@ MicroBitModuleWeather temp(&uBit);
 void setup() {
 	uBit.init();
 
-	buttons.Init(1);
-	motion.Init(2);
-	matrix.Init(3);
-	light.Init(4);
-	temp.Init(5);
-
 	dock.AddModule(&buttons);
 	dock.AddModule(&motion);
 	dock.AddModule(&matrix);
